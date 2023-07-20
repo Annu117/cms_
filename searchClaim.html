@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Search Claim</title>
+<link rel="stylesheet" href="claim.css">
+<link rel="stylesheet" href="login.css">
+<style>
+/* CSS Styling */
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f1f1f1;
+	margin: 0;
+	padding: 20px;
+}
+
+h1 {
+	text-align: center;
+}
+
+.form-container {
+	max-width: 400px;
+	margin: 0 auto;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+label {
+	display: block;
+	margin-top: 10px;
+}
+
+input[type="text"], select, input[type="date"] {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+#dateFields {
+	display: none;
+}
+
+#submitBtn {
+	display: block;
+	width: 100%;
+	padding: 12px;
+	background-color: #4CAF50;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background-color 0.3s;
+}
+
+#back {
+	display: inline;
+	padding: 12px;
+	text-align: left;
+	background-color: #4CAF50;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background-color 0.3s;
+}
+
+#backL:hover {
+	background-color: #45a049;
+}
+
+#submitBtn:hover {
+	background-color: #45a049;
+}
+
+#resultTable {
+	margin-top: 20px;
+	border-collapse: collapse;
+	width: 100%;
+	background-color: #fff;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
+}
+
+th {
+	background-color: #f2f2f2;
+}
+
+td.details {
+	white-space: pre-line;
+}
+#result{
+height: 250px;
+overflow: scroll;
+}
+
+/* Responsive Styling */
+@media ( max-width : 600px) {
+	.form-container {
+		padding: 10px;
+	}
+	#submitBtn {
+		font-size: 14px;
+	}
+	#resultTable {
+		font-size: 14px;
+	}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+    <a href="#" class="logo">CMS</a>
+    <nav class="nav-items">
+      <a href="login.html">Home</a>
+      <div class="dropdown">
+        <button  class="dropbtn" onclick="return false;">Actions</button>
+          <div class="dropdown-content">
+           <a href="register.jsp" >New Member Registration</a>
+          <a href="update.jsp" >Update Member</a>
+          <a href="claim.jsp" >New Claim Request </a>
+           <a href="searchClaim.html" >Search Claim </a>
+           <a href="processClaim.html" >Process Claim </a>
+          </div>
+        </div>
+        <div class="user" id="user">
+            <a href="#" class="user-link"></a>
+            <div class="user-img-wrapper">
+                <img src="useravatar.png" alt="User 1" style="width: 50px; height: auto;" />
+            </div>
+            <div class="user-dropdown">
+                <a href="login.html">Log Out</a>
+            </div>
+        </div>
+<!--      <button class="special-button" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>-->
+      <div id="id01" class="modal">
+
+        
+          <script>
+            const userLink = document.querySelector('.user-link');
+            const userDropdown = document.querySelector('.user-dropdown');
+            
+            userLink.addEventListener('click', () => {
+              userDropdown.style.display = 'block';
+            });
+            
+            document.addEventListener('click', (event) => {
+              if (!userLink.contains(event.target) && !userDropdown.contains(event.target)) {
+                userDropdown.style.display = 'none';
+              }
+            });
+            </script>
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Register</button>
+      <span class="psw">Forgot <a href="#">password?</a></span>
+    </div>
+  </form>
+</div>
+<script>
+  function check(form)
+  {
+ 
+  if(form.uname.value && form.psw.value)
+   {
+ 
+ alert("Welcome to CLAIM MANAGEMENT HUB");
+ 
+ var userid = document.getElementById("uname").value;
+ document.write("Welcome " + userid);
+ window.location.href = "Home.jsp";
+    }
+    else
+    {
+     alert("Error Password or Username");
+     }
+    }
+ 
+    </script>
+
+
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+    </nav>
+  </header>
+  <main>
+	<form action="/Search_claim/id" method="get">
+		<h1>Search Claim</h1>
+		<div class="form-container">
+			<label for="searchType">Search By:</label> <select id="searchType">
+				<option value="id">By Id</option>
+				<option value="name">By Name</option>
+				<option value="date">By Date</option>
+			</select>
+
+			<div id="idField">
+				<label for="id">Enter Id:</label> <input type="text" id="id"
+					name="id" />
+			</div>
+
+			<div id="nameField" style="display: none">
+				<label for="name">Enter Name:</label> <input type="text" id="name" />
+			</div>
+
+			<div id="dateFields">
+				<label for="fromDate">From Date:</label> <input type="date"
+					id="fromDate" /> <label for="toDate">To Date:</label> <input
+					type="date" id="toDate" />
+			</div>
+
+			<button id="submitBtn" onclick="handleSubmit()">Submit</button>
+		</div>
+</form>
+<div id="result">
+		<table id="resultTable">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Insurance</th>
+					<th>Insurance Type</th>
+					<th>Claim Request Date</th>
+					<th>Claim Reason</th>
+				</tr>
+			</thead>
+			<tbody id="resultBody"></tbody>
+		</table>
+		</div>
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script>
+    // JavaScript code for DOM manipulation and fetching data
+
+    // Function to show/hide fields based on selected search type
+
+    function toggleFields() {
+      const searchType = document.getElementById('searchType').value;
+      const idField = document.getElementById('idField');
+      const nameField = document.getElementById('nameField');
+      const dateFields = document.getElementById('dateFields');
+
+      idField.style.display = searchType === 'id' ? 'block' : 'none';
+      nameField.style.display = searchType === 'name' ? 'block' : 'none';
+      dateFields.style.display = searchType === 'date' ? 'block' : 'none';
+    }
+
+    // Function to format the date as yyyy-mm-dd
+    function formatDate(date) {
+      const year = date.getFullYear();
+      let month = date.getMonth() + 1;
+      month = month < 10 ?
+            '0' + month : month;
+      const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+      return `${year}-${month}-${day}`;
+    }
+
+    // Function to create table rows based on the retrieved data
+    function createTableRows(data) {
+      const tbody = document.getElementById('resultBody');
+      tbody.innerHTML = '';
+
+      if (Array.isArray(data)) {
+        data.forEach((member) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+        	  <td>${member.id}</td>
+            <td>${member.firstName}</td>
+            <td>${member.lastName}</td>
+            <td>${member.insurance}</td>
+            <td>${member.insuranceType}</td>
+            <td>${member.claimRequestDate}</td>
+            <td>${member.claimReason}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      } else {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+        	<td>${data.memberId}</td>
+          <td>${data.firstName}</td>
+          <td>${data.lastName}</td>
+          <td>${data.insurance}</td>
+          <td>${data.insuranceType}</td>
+          <td>${data.claimRequestDate}</td>
+          <td>${data.claimReason}</td>
+        `;
+        tbody.appendChild(row);
+      }
+    }
+
+    // Function to handle form submission
+    function handleSubmit() {
+        console.log("run");
+      event.preventDefault();
+
+      const searchType = document.getElementById('searchType').value;
+      let url = '';
+      let requestBody = {};
+      if (searchType === 'id') {
+          const memberId = document.getElementById('id').value;
+          url_a = `/Search_claim/id`;
+          $.ajax({
+              url: url_a,
+              type: 'GET',
+              data: 'id='+memberId,//sending json data
+              dataType: 'json',
+          success: function(data) {
+              //just for printing purpose
+              createTableRows(data);
+          },
+          error: function(data) {
+              alert("fail");
+          }
+      });
+        } else if (searchType === 'name') {
+          const memberName = document.getElementById('name').value;
+          url_a = `Search_claim/name`;
+          $.ajax({
+              url: url_a,
+              type: 'GET',
+              data: 'name='+memberName,//sending json data
+              dataType: 'json',
+          success: function(data) {
+              //just for printing purpose
+              createTableRows(data);
+          },
+          error: function(data) {
+              alert("fail");
+          }
+      });
+        } else if (searchType === 'date') {
+          const fromDate = document.getElementById('fromDate').value;
+          const toDate = document.getElementById('toDate').value;
+          url_a = `Search_claim/date`;
+          $.ajax({
+              url: url_a,
+              type: 'GET',
+              data: {from:fromDate, 	to:toDate},//sending json data
+              dataType: 'json',
+          success: function(data) {
+              //just for printing purpose
+              createTableRows(data);
+          },
+          error: function(data) {
+              alert("fail");
+          }
+      });
+        }
+
+
+/*      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          createTableRows(data);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });*/
+    }
+
+    // Event listeners
+    document.getElementById('searchType').addEventListener('change', toggleFields);
+    document.getElementById('submitBtn').addEventListener('click', handleSubmit);
+  </script>
+</main>
+  <footer class="footer">
+    <!-- <div class="copy">&copy; 2023 Developer</div> -->
+    <div class="bottom-links">
+      <div class="links">
+        <span>More Info</span>
+        <a href="#">Home</a>
+        <div class="dropdown">
+          <button class="dropbtn">Actions</button>
+          <div class="dropdown-content">
+            <a href="register.jsp" >New Member Registration</a>
+            <a href="update.jsp" >Update Member</a>
+          <a href="claim.jsp" >New Claim Request </a>
+           <a href="searchClaim.html" >Search Claim </a>
+           <a href="processClaim.html" >Process Claim </a>
+          </div>
+        </div>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </div>
+      
+      <div class="links">
+        <span>Social Links</span>
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      <div class="info1">
+        <p>Created by: John Doe</p>
+        <p>Created date: May 23, 2023</p>
+        <p>Updated by: Jane Smith</p>
+        <p>Updated date:<p id="Updated_DateTime">Updated date:</p></p>
+      </div>
+      
+      
+      <script>
+        const date = new Date(document.lastModified);
+        document.getElementById("Updated_DateTime").innerHTML = date;
+        </script>
+    </div>
+  </footer>
+	
+
+</body>
+</html>

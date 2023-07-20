@@ -1,0 +1,121 @@
+    /* Reset default styles for form elements */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 16px;
+      }
+    
+    /* Style for divisions of website area */  
+      .split {
+        height: 100%;
+        width: 50%;
+        position: fixed; 
+        overflow: scroll;
+        z-index: 1;
+        top: 0;
+        } 
+        
+        .left {
+        left: 0;
+        background-color: white;
+        } 
+        
+        .right {
+        right: 0;
+        background-color: #1e7db3; 
+        color:#000000; 
+        width: 70%;
+        }
+    
+      /* Style for the form container */
+      form {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        background-color: #f8f8f8;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+      }
+      
+      /* Style for the form title */
+      form h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 24px;
+      }
+      
+      /* Style for form labels */
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      
+      /* Style for form inputs */
+      input[type="text"], textarea, select, input[type="tel"], input[type="email"] {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: #f5f5f5;
+        box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+      }
+      
+      input[type="radio"] {
+        margin-right: 10px;
+      }
+      
+      /* Style for the submit button */
+    
+      .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        
+      }
+    
+      button[type="submit"]{
+        display: block;
+        margin: auto;
+        background-color: rgb(9, 9, 87);
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background-color 0.2s ease-in-out;
+        text-align: center;
+      }
+      
+      button[type="submit"]:hover {
+        background-color: #006b9f;
+      }
+    
+      button[type="reset"] {
+        display: block;
+        margin: auto;
+        background-color: rgb(9, 9, 87);
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background-color 0.2s ease-in-out;
+        text-align: center;
+      }
+      
+      button[type="reset"]:hover {
+        background-color: #006b9f;
+      }
+      
+      /* Style for error messages */
+      .error {
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
+      }
