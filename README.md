@@ -1,1 +1,1 @@
-# Claim Management System
+# CMS
